@@ -2,23 +2,23 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>http://dklesev.github.io/init/</loc>
+    <loc>https://dklesev.github.io/init/</loc>
     <lastmod>2017-04-16T01:15:27+02:00</lastmod>
   </url>
   
   <url>
-    <loc>http://dklesev.github.io/categories/</loc>
+    <loc>https://dklesev.github.io/categories/</loc>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>http://dklesev.github.io/</loc>
+    <loc>https://dklesev.github.io/</loc>
     <lastmod>2017-04-16T01:15:27+02:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>http://dklesev.github.io/tags/</loc>
+    <loc>https://dklesev.github.io/tags/</loc>
     <priority>0</priority>
   </url>
   
