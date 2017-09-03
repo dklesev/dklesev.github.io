@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>DK | Blog</title>
-    <link>https://dklesev.github.io/</link>
-    <description>Recent content on DK | Blog</description>
+    <title>Ssh on DK | Blog</title>
+    <link>https://dklesev.github.io/categories/ssh/</link>
+    <description>Recent content in Ssh on DK | Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>Copyright &amp;copy; 2017 Dimitrij Klesev | &lt;a href=&#34;https://github.com/mgjohansen/hucore.git&#34; target=&#34;_blank&#34;&gt;Hucore theme&lt;/a&gt; &amp; &lt;a href=&#34;http://gohugo.io&#34; target=&#34;_blank&#34;&gt;Hugo&lt;/a&gt; ♥</copyright>
     <lastBuildDate>Sat, 26 Aug 2017 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="https://dklesev.github.io/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://dklesev.github.io/categories/ssh/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>

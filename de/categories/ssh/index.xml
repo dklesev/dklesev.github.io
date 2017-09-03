@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Ssh on DK | Blog</title>
+    <link>https://dklesev.github.io/de/categories/ssh/</link>
+    <description>Recent content in Ssh on DK | Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>Copyright &amp;copy; 2017 Dimitrij Klesev | &lt;a href=&#34;https://github.com/mgjohansen/hucore.git&#34; target=&#34;_blank&#34;&gt;Hucore theme&lt;/a&gt; &amp; &lt;a href=&#34;http://gohugo.io&#34; target=&#34;_blank&#34;&gt;Hugo&lt;/a&gt; ♥</copyright>
+    <lastBuildDate>Sat, 26 Aug 2017 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://dklesev.github.io/de/categories/ssh/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Erstellen einer lokalen Entwicklungsumgebung mit CoreDNS, SSH und Docker Swarm</title>
+      <link>https://dklesev.github.io/de/devenv/</link>
+      <pubDate>Sat, 26 Aug 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://dklesev.github.io/de/devenv/</guid>
+      <description>Abbildung 1: Abstrakte Darstellung des Aufbaus
+
+Die Arbeit mit Docker in einer lokalen Umgebung ist großartig und kann eine Menge Dinge einfacher machen. Mit Swarm kann man sogar viele Maschinen zu einer &amp;ldquo;gemeinsamen&amp;rdquo; zusammenfassen und somit alle Ressourcen einfach nutzen.
+Es gibt dabei viele Möglichkeiten, wie beispielsweise das Einrichten eines Swarm-Clusters auf AWS oder Digital Ocean und daraufhin das Bereitstellen verschiedener Dienste. Klingt spaßig.
+Allerdings ist es ein bisschen ärgerlich, immer wieder ein paar Sachen in die etc/hosts schreiben zu müssen.</description>
+    </item>
+    
+  </channel>
+</rss>

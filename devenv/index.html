@@ -1,0 +1,361 @@
+
+<!DOCTYPE html>
+<html lang="en-us">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta content="keyword 1, keyword 2, keyword 3" name="keywords">
+<meta content="Dimitrij Klesev" name="author">
+<meta property="og:title" content="Setup a local devenv with CoreDNS, SSH and Docker Swarm - DK | Blog">
+<meta property="og:url" content="https://dklesev.github.io/devenv/">
+<meta property="og:description" content="Your description here">
+<meta property="og:type" content="website" />
+<title>Setup a local devenv with CoreDNS, SSH and Docker Swarm | DK | Blog</title>
+<link rel="stylesheet" href="https://dklesev.github.io/css/style.css">
+<link rel="shortcut icon" href="https://dklesev.github.io/wave.ico">
+<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/styles/github.min.css">
+
+
+<section class="section">
+  <div class="container">
+    <nav class="nav">
+      <div class="nav-left">
+        <a class="nav-item" href="https://dklesev.github.io"><h1 class="title is-4">DK | Blog</h1></a>
+      </div>
+      <div class="nav-right">
+        <nav class="nav-item level is-mobile">
+          
+          <a class="level-item" href="https://audk.at" target="_blank">
+            <span class="icon">
+              <i class="fa fa-home"></i>
+            </span>
+          </a>
+          
+          <a class="level-item" href="https://github.com/dklesev" target="_blank">
+            <span class="icon">
+              <i class="fa fa-github"></i>
+            </span>
+          </a>
+          
+          <a class="level-item" href="https://www.xing.com/profile/Dimitrij_Klesev" target="_blank">
+            <span class="icon">
+              <i class="fa fa-xing"></i>
+            </span>
+          </a>
+          
+          <a class="level-item" href="https://www.linkedin.com/in/dimitrij-klesev-59a006a1/" target="_blank">
+            <span class="icon">
+              <i class="fa fa-linkedin"></i>
+            </span>
+          </a>
+          
+          <a class="level-item" href="/index.xml" target="_blank">
+            <span class="icon">
+              <i class="fa fa-rss"></i>
+            </span>
+          </a>
+          
+        </nav>
+      </div>
+    </nav>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <h1 class="title">Setup a local devenv with CoreDNS, SSH and Docker Swarm</h1>
+    <h2 class="subtitle is-5">August 26, 2017 by Dimi</h2>
+    
+<h4></h4>
+Other languages:
+    
+        <a href="https://dklesev.github.io/de/devenv/">de</a>
+    
+
+    
+      <div class="tags">
+    
+        <a class="button is-link" href="/tags/devops">devops</a>
+    
+        <a class="button is-link" href="/tags/docker">docker</a>
+    
+        <a class="button is-link" href="/tags/dns">dns</a>
+    
+        <a class="button is-link" href="/tags/ssh">ssh</a>
+    
+</div>
+
+    
+    <div class="content">
+      <p><img src="/devenv/overview.png" alt="Setup overview" /></p>
+
+<p><center><p>Image 1: Abstract overview of the setup</p></center></p>
+
+<p>Working with docker in a local environment is great and can make a lot of dev things easier. With swarm you can even lump together all your machines and use all the ressource as one big view.</p>
+
+<p>There are a lot of possibilies, like setting up a swarm cluster on AWS or Digital Ocean in minutes and then deploy your services. This is straightforward.</p>
+
+<p>However adding some stuff to your <code>/etc/hosts</code> everytime is a bit annoying. Especially if you deploy different services to swarm. A lot of different services. On different swarms.. Overcomplicated..<br>
+Also, opening up everything or even a bit of everything to the world wide web is bad practice. Especially while experimenting. Not a good idea.</p>
+
+<p>So how can one work in a comfortable way with e.g. multiple swarm clusters from a local machine and don&rsquo;t care about all the configuration needed to secure the services and access them easily, e.g. under <code>myservice.some.domain</code>?</p>
+
+<p>Image 1 shows a simplified setup of what I like to use. Very quick, secure and without annoying things. Usually one has SSH access to the machines. This should be sufficient to work with. Without opening any ports. One can either forward some local ports to the remote machine or even use VPN-over-SSH, e.g. sshuttle.</p>
+
+<p>Most of the time I work with WebDev so using HTTP/S is sufficient for my tasks. Here you see a common example of port forwarding (local <code>80</code> to remote <code>80</code>).</p>
+
+<pre><code class="language-bash">$ ssh -L 80:123.123.123.123:80 user@123.123.123.123 -N
+</code></pre>
+
+<p>So now I can simply access a web-service on the remote machine by just typing <code>localhost</code> into my browser. It&rsquo;s really handy if you want to work with only one remote machine, but it will use port <code>80</code> locally. Hmmm.</p>
+
+<p>If you don&rsquo;t want it to occupy port <code>80</code> locally, you can just use <a href="http://sshuttle.readthedocs.io/en/stable/">sshuttle</a> (as suggested above). So by running</p>
+
+<pre><code>$ sshuttle -r user@123.123.123.123 123.123.123.0/24
+</code></pre>
+
+<p>one gets the possibility to access the remote web-service (e.g.) on port <code>80</code> by just using the remote IP (<code>123.123.123.123</code>). Surely the more comfortable way is to add something like <code>123.123.123.123 some.domain</code> to the remote server&rsquo;s hosts file and then typing this url instead of the IP. Hmmm. <br>
+And what is if I have multiple services like <code>webapp1</code> and <code>webapp2</code> running on the remote machine? (Load balancing and subdomain routing will be discussed later)</p>
+
+<p>Normally, we would have to add another line to the hosts file for every service (if we want to access them via a subdomain, like <code>webapp1.remote.server</code>). Could become really annoying..
+Sure we could use some path-routing like <code>/myblog --&gt; webapp1</code> or <code>/mysite --&gt; webapp2</code>. I don&rsquo;t like such crap.</p>
+
+<p>A much easier solution is to run some DNS server locally. A lot of people are scared of such ideas but there are some really really simple solutions for this. Like <a href="https://coredns.io">CoreDNS</a>. And docker. Running CoreDNS with docker. No headache.
+Of course we have to add some configuration (but it&rsquo;s still quite simple though..)</p>
+
+<p>So I run my local DNS this way:</p>
+
+<pre><code>$ docker run --rm -p 53:53/udp -v $(pwd):/coredns-config/ coredns/coredns -conf /coredns-config/Corefile
+</code></pre>
+
+<p>Here the container gets deleted on exit, port binding is simply set to dns and I provide some configurations (like Corefile).</p>
+
+<p>The content of the Corefile is quite simple.</p>
+
+<pre><code>.:53 {
+  file /coredns-config/docker.swarm docker.swarm
+  proxy . 8.8.8.8:53 [2001:4860:4860::8888]:53
+  prometheus
+  errors stdout
+  log stdout
+}
+</code></pre>
+
+<p>It basically redirects everything except docker.swarm queries to a google dns. For docker.swarm domains it uses another config (<code>/coredns-config/docker.swarm</code>).</p>
+
+<p>The content of this is quite simple, too:</p>
+
+<pre><code>$TTL 60
+$ORIGIN docker.swarm.
+@                   IN	SOA sns.dns.icann.org. noc.dns.icann.org. (
+          2017042745 ; serial
+          7200       ; refresh (2 hours)				
+          3600       ; retry (1 hour)			
+          1209600    ; expire (2 weeks)				
+          3600       ; minimum (1 hour)				
+          )
+@                   IN A     123.123.123.123
+*.docker.swarm.     IN A     123.123.123.123
+</code></pre>
+
+<p>Every subdomain and <code>docker.swarm</code> points to the remote server&rsquo;s IP. Very simple.</p>
+
+<p>While running the container one can test with <code>dig</code> if it really works:</p>
+
+<pre><code>$ dig docker.swarm                 
+
+; &lt;&lt;&gt;&gt; DiG 9.8.3-P1 &lt;&lt;&gt;&gt; docker.swarm
+;; global options: +cmd
+;; Got answer:
+;; -&gt;&gt;HEADER&lt;&lt;- opcode: QUERY, status: NOERROR, id: 20479
+;; flags: qr aa rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 0
+
+;; QUESTION SECTION:
+;docker.swarm.			IN	A
+
+;; ANSWER SECTION:
+docker.swarm.		60	IN	A	123.123.123.123
+
+;; Query time: 47 msec
+;; SERVER: 127.0.0.1#53(127.0.0.1)
+;; WHEN: Fri Sep  1 23:06:42 2017
+;; MSG SIZE  rcvd: 46
+</code></pre>
+
+<p>You get the same by accessing a subdomain. To let your local machine use the local dns don&rsquo;t forget to update <code>resolv.conf</code> (adding <code>nameserver 127.0.0.1</code>).</p>
+
+<p>So now that big part is solved, too. If I deploy a simple webapp to my swarm cluster now, I can simply access it via the domain served by the CoreDNS container (<code>docker.swarm</code>).</p>
+
+<p>The next problem is related to the ports.<br>
+If you run a container and bind some ports (e.g. host&rsquo;s <code>8080</code> to container&rsquo;s <code>80</code>) you can&rsquo;t bind another container to the same port. I.e. we have to access another webapp on a different port (e.g. <code>docker.swarm:8080</code> rather than simply <code>80</code>). This is somehow annoying.</p>
+
+<p>To solve this we could use a good load balancer like <a href="https://traefik.io">traefik</a>.</p>
+
+<p>Please have a look at the Image 1 at the beginning of this post. Traefik will route our requests (e.g. <code>jupyter.docker.swarm</code> or <code>sharelatex.docker.swarm</code>) to the corresponding container. We only use subdomains. No ports. No headache.</p>
+
+<p>I used a <code>docker-stack.yml</code> for traefik. This is how it looks like:</p>
+
+<pre><code class="language-yaml">version: '3'
+services:
+  traefik:
+    image: traefik:latest
+    command: &gt;
+      --web --docker --docker.swarmmode
+      --docker.domain=docker.swarm --docker.watch
+      --accesslogsfile=/dev/stdout --logLevel=DEBUG
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /dev/null:/traefik.toml
+    ports:
+      - &quot;80:80&quot;
+      - &quot;8080:8080&quot;
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+      placement:
+        constraints:
+          - node.role == manager
+      labels:
+        - &quot;traefik.port=8080&quot;
+        - &quot;traefik.backend=traefik&quot;
+        - &quot;traefik.frontend.rule=Host:traefik.docker.swarm&quot;
+        - &quot;traefik.docker.network=traefik_default&quot;
+</code></pre>
+
+<p>Note that I provided the domain name in the command section. Next I placed the container on the manager node (dns container will resolve to the manager IP) and some labels. E.g. traefiks dashboard is accessible under <code>traefik.docker.swarm</code>. To deploy the stack simply run:</p>
+
+<p><code>docker stack deploy -c docker-cloud.yml traefik</code></p>
+
+<p><strong>Some addtional notes:</strong> if you deploy traefik this way, a default network will be created (<code>traefik_default</code>). So when deploying other services you should add <code>traefik_default</code> to the service (as external network) and specify the label (like above). If you don&rsquo;t do it you&rsquo;ll probably get a timeout error as traefik will not be able to redirect the request.</p>
+
+<p>We can test the whole setup by running a simple <a href="https://github.com/emilevauge/whoamI/">whoami</a> container which will provide information like where the request has been redirected to (container-id) and others.</p>
+
+<p>So I have a swarm cluster consisting of three worker nodes and one manager.</p>
+
+<pre><code>$ docker node ls
+ID                            HOSTNAME            STATUS              AVAILABILITY        MANAGER STATUS
+4v4pbtu27a8znsan86jf3uacr     docker-4            Ready               Active              
+kzanvv77u4v0ptk9p3zcvlzue     docker-3            Ready               Active              
+mhs4e6yw9io8pw9tnoxbgwcmq *   docker-1            Ready               Active              Leader
+q07x2s9r640ia3vfkj75fhhzo     docker-2            Ready               Active  
+</code></pre>
+
+<p>With <code>docker service create --name whoami --network traefik_default --label traefik.port=80  --replicas 4 emilevauge/whoami</code> I shoud get one container running on each node.</p>
+
+<p>So here some details:</p>
+
+<pre><code>$ docker service ps whoami 
+ID                  NAME                IMAGE                      NODE                DESIRED STATE       CURRENT STATE       
+oiwp51fs9f4p        whoami.1            emilevauge/whoami:latest   docker-3            Running             Running 19 hours ago                       
+rxr0w0ix7c9l        whoami.2            emilevauge/whoami:latest   docker-4            Running             Running 19 hours ago                       
+kl1lmnfux6e6        whoami.3            emilevauge/whoami:latest   docker-2            Running             Running 19 hours ago                       
+d7af62xugy4o        whoami.4            emilevauge/whoami:latest   docker-1            Running             Running 19 hours ago 
+</code></pre>
+
+<p>Using <code>curl</code> we can see the requests are balanced to each container with round robin (everything can be configured with traefik):</p>
+
+<p>(first request)</p>
+
+<pre><code>$ curl whoami.docker.swarm
+Hostname: 2c049cd20104
+IP: 127.0.0.1
+IP: 10.0.1.16
+IP: 10.0.1.5
+IP: 172.18.0.8
+GET / HTTP/1.1
+Host: whoami.docker.swarm
+User-Agent: curl/7.54.0
+Accept: */*
+Accept-Encoding: gzip
+X-Forwarded-For: 10.255.0.2
+X-Forwarded-Host: whoami.docker.swarm
+X-Forwarded-Port: 80
+X-Forwarded-Proto: http
+X-Forwarded-Server: 4c8275a2a00c
+X-Traefik-Reqid: 9912
+</code></pre>
+
+<p>(second request)</p>
+
+<pre><code>$ curl whoami.docker.swarm
+Hostname: df827b31f25c
+IP: 127.0.0.1
+IP: 10.0.1.15
+IP: 10.0.1.5
+IP: 172.18.0.4
+GET / HTTP/1.1
+Host: whoami.docker.swarm
+User-Agent: curl/7.54.0
+Accept: */*
+Accept-Encoding: gzip
+X-Forwarded-For: 10.255.0.2
+X-Forwarded-Host: whoami.docker.swarm
+X-Forwarded-Port: 80
+X-Forwarded-Proto: http
+X-Forwarded-Server: 4c8275a2a00c
+X-Traefik-Reqid: 10014
+</code></pre>
+
+<p>(Obviously the hostname listed above is not the ID from the service task&rsquo;s output, it&rsquo;s just the container ID)</p>
+
+<p>So you have reached the last line - if you have any questions or suggestions, let me know :)</p>
+
+    </div>
+    
+        <div class="nav-left">
+    <a class="nav-item" href="https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fdklesev.github.io%2fdevenv%2f" title="Share on Facebook" target="_blank"><span class="fa fa-facebook fa-2x" aria-hidden="true"></span></a>
+    <a class="nav-item" href="https://plus.google.com/share?url=https%3a%2f%2fdklesev.github.io%2fdevenv%2f" title="Share on Google+" target="_blank"><span class="fa fa-google-plus fa-2x" aria-hidden="true"></span></a>
+    <a class="nav-item" href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https%3a%2f%2fdklesev.github.io%2fdevenv%2f" title="Share on LinkedIn" target="_blank"><span class="fa fa-linkedin fa-2x" aria-hidden="true"></span></a>
+    <a class="nav-item" href="https://twitter.com/home?status=Setup%20a%20local%20devenv%20with%20CoreDNS%2c%20SSH%20and%20Docker%20Swarm - https%3a%2f%2fdklesev.github.io%2fdevenv%2f" title="Tweet this" target="_blank"><span class="fa fa-twitter fa-2x"></span></a>
+    <a class="nav-item" href="http://www.reddit.com/submit?url=https%3a%2f%2fdklesev.github.io%2fdevenv%2f&title=Setup%20a%20local%20devenv%20with%20CoreDNS%2c%20SSH%20and%20Docker%20Swarm" title="Share on Reddit" target="_blank"><span class="fa fa-reddit-alien fa-2x" aria-hidden="true"></span></a>
+    
+    </div>
+    
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <aside><div id="disqus_thread"></div></aside>
+    <script type="text/javascript">
+      var disqus_shortname = 'blog-audk-at';
+      (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+
+
+<section class="section">
+  <div class="container has-text-centered">
+    <p>Copyright &copy; 2017 Dimitrij Klesev | <a href="https://github.com/mgjohansen/hucore.git" target="_blank">Hucore theme</a> & <a href="http://gohugo.io" target="_blank">Hugo</a> ♥</p>
+  </div>
+</section>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/highlight.min.js" integrity="sha256-KbfTjB0WZ8vvXngdpJGY3Yp3xKk+tttbqClO11anCIU=" crossorigin="anonymous"></script>
+
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/languages/go.min.js"></script>
+
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/languages/dockerfile.min.js"></script>
+
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/languages/yaml.min.js"></script>
+
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/languages/bash.min.js"></script>
+
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+<script>
+window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+ga('create', 'UA-97439527-1', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src='//www.google-analytics.com/analytics.js'></script>
+
+
+
