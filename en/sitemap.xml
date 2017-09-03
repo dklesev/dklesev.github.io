@@ -18,19 +18,13 @@
   </url>
   
   <url>
-    <loc>https://dklesev.github.io/categories/devops/</loc>
-    <lastmod>2017-09-03T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
     <loc>https://dklesev.github.io/tags/devops/</loc>
     <lastmod>2017-09-03T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://dklesev.github.io/categories/dns/</loc>
+    <loc>https://dklesev.github.io/categories/devops/</loc>
     <lastmod>2017-09-03T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
@@ -42,7 +36,7 @@
   </url>
   
   <url>
-    <loc>https://dklesev.github.io/categories/docker/</loc>
+    <loc>https://dklesev.github.io/categories/dns/</loc>
     <lastmod>2017-09-03T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
@@ -54,13 +48,19 @@
   </url>
   
   <url>
-    <loc>https://dklesev.github.io/categories/ssh/</loc>
+    <loc>https://dklesev.github.io/categories/docker/</loc>
     <lastmod>2017-09-03T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://dklesev.github.io/tags/ssh/</loc>
+    <lastmod>2017-09-03T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://dklesev.github.io/categories/ssh/</loc>
     <lastmod>2017-09-03T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
