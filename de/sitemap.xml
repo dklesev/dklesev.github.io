@@ -37,6 +37,11 @@
     <priority>0</priority>
     <xhtml:link
                 rel="alternate"
+                hreflang="it"
+                href="https://dklesev.github.io/it/categories/"
+                />
+    <xhtml:link
+                rel="alternate"
                 hreflang="en"
                 href="https://dklesev.github.io/categories/"
                 />
@@ -51,6 +56,11 @@
     <loc>https://dklesev.github.io/de/</loc>
     <lastmod>2018-10-20T08:00:00+00:00</lastmod>
     <priority>0</priority>
+    <xhtml:link
+                rel="alternate"
+                hreflang="it"
+                href="https://dklesev.github.io/it/"
+                />
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
@@ -195,6 +205,11 @@
     <loc>https://dklesev.github.io/de/tags/</loc>
     <lastmod>2017-09-03T00:00:00+00:00</lastmod>
     <priority>0</priority>
+    <xhtml:link
+                rel="alternate"
+                hreflang="it"
+                href="https://dklesev.github.io/it/tags/"
+                />
     <xhtml:link
                 rel="alternate"
                 hreflang="en"

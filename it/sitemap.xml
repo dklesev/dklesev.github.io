@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  
+  <url>
+    <loc>https://dklesev.github.io/it/categories/</loc>
+    <priority>0</priority>
+    <xhtml:link
+                rel="alternate"
+                hreflang="de"
+                href="https://dklesev.github.io/de/categories/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://dklesev.github.io/categories/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="it"
+                href="https://dklesev.github.io/it/categories/"
+                />
+  </url>
+  
+  <url>
+    <loc>https://dklesev.github.io/it/</loc>
+    <priority>0</priority>
+    <xhtml:link
+                rel="alternate"
+                hreflang="de"
+                href="https://dklesev.github.io/de/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://dklesev.github.io/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="it"
+                href="https://dklesev.github.io/it/"
+                />
+  </url>
+  
+  <url>
+    <loc>https://dklesev.github.io/it/tags/</loc>
+    <priority>0</priority>
+    <xhtml:link
+                rel="alternate"
+                hreflang="de"
+                href="https://dklesev.github.io/de/tags/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://dklesev.github.io/tags/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="it"
+                href="https://dklesev.github.io/it/tags/"
+                />
+  </url>
+  
+</urlset>
