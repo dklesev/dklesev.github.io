@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Dns on DK | Blog</title>
+    <link>https://dklesev.github.io/fr/tags/dns/</link>
+    <description>Recent content in Dns on DK | Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>Copyright &amp;copy; 2018 Dimitrij Klesev | &lt;a href=&#34;https://github.com/mgjohansen/hucore.git&#34; target=&#34;_blank&#34;&gt;Hucore theme&lt;/a&gt; &amp; &lt;a href=&#34;http://gohugo.io&#34; target=&#34;_blank&#34;&gt;Hugo&lt;/a&gt; ♥</copyright>
+    <lastBuildDate>Sat, 20 Oct 2018 08:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://dklesev.github.io/fr/tags/dns/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Utiliser Laradock avec Traefik (et HTTPS)</title>
+      <link>https://dklesev.github.io/fr/laradock/</link>
+      <pubDate>Sat, 20 Oct 2018 08:00:00 +0000</pubDate>
+      
+      <guid>https://dklesev.github.io/fr/laradock/</guid>
+      <description>Image 1 : Laradock et traefik
+
+Développer avec Laravel, c&amp;rsquo;est se sentir bien et à l&amp;rsquo;aise grâce au bel écosystème. Avec Homestead ou Valet (mais seulement pour Mac) on obtient un environnement de développement prêt à fonctionner. Avec Docker, cependant, il est devenu encore plus confortable, au plus tard avec Laradock. Non seulement les différents services peuvent être activés et désactivés rapidement, mais de nombreuses configurations ou environnements peuvent également être gérés comme avec git.</description>
+    </item>
+    
+  </channel>
+</rss>

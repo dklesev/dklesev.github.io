@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Categories on DK | Blog</title>
+    <link>https://dklesev.github.io/fr/categories/</link>
+    <description>Recent content in Categories on DK | Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>Copyright &amp;copy; 2018 Dimitrij Klesev | &lt;a href=&#34;https://github.com/mgjohansen/hucore.git&#34; target=&#34;_blank&#34;&gt;Hucore theme&lt;/a&gt; &amp; &lt;a href=&#34;http://gohugo.io&#34; target=&#34;_blank&#34;&gt;Hugo&lt;/a&gt; ♥</copyright>
+    
+	<atom:link href="https://dklesev.github.io/fr/categories/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Dev</title>
+      <link>https://dklesev.github.io/fr/categories/dev/</link>
+      <pubDate>Sat, 20 Oct 2018 08:00:00 +0000</pubDate>
+      
+      <guid>https://dklesev.github.io/fr/categories/dev/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Docker</title>
+      <link>https://dklesev.github.io/fr/categories/docker/</link>
+      <pubDate>Sat, 20 Oct 2018 08:00:00 +0000</pubDate>
+      
+      <guid>https://dklesev.github.io/fr/categories/docker/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>
