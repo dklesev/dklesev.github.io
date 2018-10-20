@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Dev on DK | Blog</title>
+    <link>https://dklesev.github.io/categories/dev/</link>
+    <description>Recent content in Dev on DK | Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>Copyright &amp;copy; 2018 Dimitrij Klesev | &lt;a href=&#34;https://github.com/mgjohansen/hucore.git&#34; target=&#34;_blank&#34;&gt;Hucore theme&lt;/a&gt; &amp; &lt;a href=&#34;http://gohugo.io&#34; target=&#34;_blank&#34;&gt;Hugo&lt;/a&gt; ♥</copyright>
+    <lastBuildDate>Sat, 20 Oct 2018 08:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://dklesev.github.io/categories/dev/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Use Laradock with Traefik (and HTTPS)</title>
+      <link>https://dklesev.github.io/laradock/</link>
+      <pubDate>Sat, 20 Oct 2018 08:00:00 +0000</pubDate>
+      
+      <guid>https://dklesev.github.io/laradock/</guid>
+      <description>Image 1: Laradock and traefik
+
+Developing with Laravel feels great and comfortable due to the nice ecosystem. With Homestead or Valet (but only for Mac) one gets a ready to go development environment. With Docker, however, it has become even more comfortable, at the latest with Laradock. Not only can the individual services be switched on and off quickly, but many configurations or environments can also be managed like with git.</description>
+    </item>
+    
+  </channel>
+</rss>

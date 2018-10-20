@@ -1,0 +1,251 @@
+
+<!DOCTYPE html>
+<html lang="en-us">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta content="keyword 1, keyword 2, keyword 3" name="keywords">
+<meta content="Dimitrij Klesev" name="author">
+<meta property="og:title" content="Use Laradock with Traefik (and HTTPS) - DK | Blog">
+<meta property="og:url" content="https://dklesev.github.io/laradock/">
+<meta property="og:description" content="Your description here">
+<meta property="og:type" content="website" />
+<title>Use Laradock with Traefik (and HTTPS) | DK | Blog</title>
+<link rel="stylesheet" href="https://dklesev.github.io/css/style.css">
+<link rel="shortcut icon" href="https://dklesev.github.io/wave.ico">
+<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/styles/github.min.css">
+
+
+<section class="section">
+  <div class="container">
+    <nav class="nav">
+      <div class="nav-left">
+        <a class="nav-item" href="https://dklesev.github.io"><h1 class="title is-4">DK | Blog</h1></a>
+      </div>
+      <div class="nav-right">
+        <nav class="nav-item level is-mobile">
+          
+          <a class="level-item" href="https://audk.at" target="_blank">
+            <span class="icon">
+              <i class="fa fa-home"></i>
+            </span>
+          </a>
+          
+          <a class="level-item" href="https://github.com/dklesev" target="_blank">
+            <span class="icon">
+              <i class="fa fa-github"></i>
+            </span>
+          </a>
+          
+          <a class="level-item" href="https://www.xing.com/profile/Dimitrij_Klesev" target="_blank">
+            <span class="icon">
+              <i class="fa fa-xing"></i>
+            </span>
+          </a>
+          
+          <a class="level-item" href="https://www.linkedin.com/in/dimitrij-klesev-59a006a1/" target="_blank">
+            <span class="icon">
+              <i class="fa fa-linkedin"></i>
+            </span>
+          </a>
+          
+          <a class="level-item" href="/index.xml" target="_blank">
+            <span class="icon">
+              <i class="fa fa-rss"></i>
+            </span>
+          </a>
+          
+        </nav>
+      </div>
+    </nav>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <h1 class="title">Use Laradock with Traefik (and HTTPS)</h1>
+    <h2 class="subtitle is-5">October 20, 2018 by Dimi</h2>
+    
+<h4></h4>
+Other languages:
+    
+        <a href="https://dklesev.github.io/de/laradock/">de</a>
+    
+
+    
+      <div class="tags">
+    
+        <a class="button is-link" href="/tags/docker">docker</a>
+    
+        <a class="button is-link" href="/tags/dns">dns</a>
+    
+        <a class="button is-link" href="/tags/traefik">traefik</a>
+    
+        <a class="button is-link" href="/tags/laravel">laravel</a>
+    
+</div>
+
+    
+    <div class="content">
+      
+
+<p><img src="/laradock/traefik_laradock.png?style=centerme" alt="Setup overview" /></p>
+
+<p><center><p>Image 1: Laradock and traefik</p></center></p>
+
+<p>Developing with Laravel feels great and comfortable due to the nice ecosystem. With <a href="https://laravel.com/docs/5.7/homestead">Homestead</a> or <a href="https://laravel.com/docs/5.7/valet">Valet</a> (but only for Mac) one gets a ready to go development environment.
+With Docker, however, it has become even more comfortable, at the latest with <a href="http://laradock.io/">Laradock</a>. Not only can the individual services be switched on and off quickly, but many configurations or environments can also be managed like with <code>git</code>.
+But there is also a small disadvantage here - you use <code>localhost:port</code> to access the respective service. You can also add something to the <code>hosts</code> file (e.g. <code>laradock.local</code>), but the ports remain. Although there are entries in the <code>docker-compose.yml</code> for proxy, varnish and more, I wondered why traefik is missing here.</p>
+
+<p>Why it could be quite useful for us, I describe in the further process. But first we make a small jump to DNS.</p>
+
+<h3 id="dns">DNS</h3>
+
+<p>A website or SaaS is usually available under a domain such as <code>audk.at</code>. If it is a larger project, there may also be something like <code>testing.audk.at</code> or <code>staging.audk.at</code>. Locally, however, something like <code>audk.dev</code> or <code>audk.local</code> is often used. Why not <code>*.dev.audk.at</code> actually? We can enter <code>127.0.0.0.1</code> and also work with real Let&rsquo;s Encrypt certificates! Fine thing, let&rsquo;s do that.</p>
+
+<p>For this I use <code>docker</code> to get a wildcard certificate <em>manually</em> via LE.</p>
+
+<pre><code class="language-YAML">$ docker run -it --rm --name letsencrypt \
+    -v &quot;$PWD/le/config:/etc/letsencrypt&quot; \
+    -v &quot;$PWD/le/work:/var/lib/letsencrypt&quot; \
+    quay.io/letsencrypt/letsencrypt:latest \
+        certonly \
+        -d dev.audk.at \
+        -d *.dev.audk.at \
+        --manual \
+        --preferred-challenges dns \
+        --server https://acme-v02.api.letsencrypt.org/directory
+</code></pre>
+
+<p>Once this is done successfully, you can use it with traefik.</p>
+
+<blockquote>
+<p><strong>Hint</strong>: If you have your domain with certain providers who also offer an API, this process can be automated with traefik.</p>
+</blockquote>
+
+<h3 id="traefik">Traefik</h3>
+
+<p>Let&rsquo;s define a <code>docker-compose.yml</code> with <code>traefik</code> as our LB. Here we also specify the subdomain under which the dashboard is accessible.</p>
+
+<pre><code class="language-YAML">version: '3'
+services:
+  traefik:
+    image: traefik:latest
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./traefik.toml:/traefik.toml
+      - $PWD/le/config/live/dev.audk.at/cert.pem:/cert.pem
+      - $PWD/le/config//live/dev.audk.at/privkey.pem:/key.pem
+    ports:
+      - &quot;80:80&quot;
+      - &quot;443:443&quot;
+    networks:
+      - proxy
+    labels:
+      - &quot;traefik.port=8080&quot;
+      - &quot;traefik.enable=true&quot;
+      - &quot;traefik.frontend.rule=Host:lb.dev.audk.at&quot;
+      - &quot;traefik.docker.network=proxy&quot;
+
+networks:
+  proxy:
+    external:
+      name: proxy
+</code></pre>
+
+<blockquote>
+<p><strong>Hint</strong>: The network <code>proxy</code> was created before</p>
+</blockquote>
+
+<h3 id="laradock">Laradock</h3>
+
+<p>As soon as we have the LB running, we can start the individual services with Laradock. Please note that you don&rsquo;t use ports <code>80/443</code> in the <code>.env</code> anymore, because they are used by the LB. But if we now start the services as <a href="https://laradock.io/getting-started/">described</a>, that doesn&rsquo;t really help us much. Under which subdomain would the individual service such as <code>nginx</code> or <code>mailhog</code> be accessible? First, think that changes to the <code>docker-compose.yml</code> in the <code>laradock</code> folder would be necessary. However, we remember that you can also extend the configurations. So you create a <code>docker-compose.override.yml</code> in the <code>laradock</code> folder (or in your own dev-repo, here you are free). The content can look something like this:</p>
+
+<pre><code class="language-YAML">version: '3'
+
+networks:
+  proxy:
+    external: true
+
+services:
+
+### NGINX Server #####################################################
+    nginx:
+      networks:
+        - proxy
+      labels:
+        - &quot;traefik.port=80&quot;
+        - &quot;traefik.enable=true&quot;
+        - &quot;traefik.frontend.rule=Host:api.dev.audk.at&quot;
+        - &quot;traefik.docker.network=proxy&quot;
+...
+</code></pre>
+
+<p>However, the services are now started a bit differently with (e.g.) <code>docker-compose -f docker-compose.yml -f docker-compose.override.yml up -d nginx postgres redis mailhog</code>. Now you can either open your browser and type <code>https://api.dev.audk.at</code> or access an API via HTTPS with Postman.</p>
+
+<blockquote>
+<p><strong>Hint</strong>: In the <code>docker-compose.override.yml</code> also other additional services can be defined, e.g. <a href="https://www.keycloak.org/">Keycloak</a></p>
+</blockquote>
+
+    </div>
+    
+        <div class="nav-left">
+    <a class="nav-item" href="https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fdklesev.github.io%2flaradock%2f" title="Share on Facebook" target="_blank"><span class="fa fa-facebook fa-2x" aria-hidden="true"></span></a>
+    <a class="nav-item" href="https://plus.google.com/share?url=https%3a%2f%2fdklesev.github.io%2flaradock%2f" title="Share on Google+" target="_blank"><span class="fa fa-google-plus fa-2x" aria-hidden="true"></span></a>
+    <a class="nav-item" href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https%3a%2f%2fdklesev.github.io%2flaradock%2f" title="Share on LinkedIn" target="_blank"><span class="fa fa-linkedin fa-2x" aria-hidden="true"></span></a>
+    <a class="nav-item" href="https://twitter.com/home?status=Use%20Laradock%20with%20Traefik%20%28and%20HTTPS%29 - https%3a%2f%2fdklesev.github.io%2flaradock%2f" title="Tweet this" target="_blank"><span class="fa fa-twitter fa-2x"></span></a>
+    <a class="nav-item" href="http://www.reddit.com/submit?url=https%3a%2f%2fdklesev.github.io%2flaradock%2f&title=Use%20Laradock%20with%20Traefik%20%28and%20HTTPS%29" title="Share on Reddit" target="_blank"><span class="fa fa-reddit-alien fa-2x" aria-hidden="true"></span></a>
+    
+    </div>
+    
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <aside><div id="disqus_thread"></div></aside>
+    <script type="text/javascript">
+      var disqus_shortname = 'blog-audk-at';
+      (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+
+
+<section class="section">
+  <div class="container has-text-centered">
+    <p>Copyright &copy; 2018 Dimitrij Klesev | <a href="https://github.com/mgjohansen/hucore.git" target="_blank">Hucore theme</a> & <a href="http://gohugo.io" target="_blank">Hugo</a> ♥</p>
+  </div>
+</section>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/highlight.min.js" integrity="sha256-KbfTjB0WZ8vvXngdpJGY3Yp3xKk+tttbqClO11anCIU=" crossorigin="anonymous"></script>
+
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/languages/go.min.js"></script>
+
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/languages/dockerfile.min.js"></script>
+
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/languages/yaml.min.js"></script>
+
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/languages/bash.min.js"></script>
+
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-97439527-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+

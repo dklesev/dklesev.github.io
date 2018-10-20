@@ -6,11 +6,22 @@
     <description>Recent content in Docker on DK | Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <copyright>Copyright &amp;copy; 2017 Dimitrij Klesev | &lt;a href=&#34;https://github.com/mgjohansen/hucore.git&#34; target=&#34;_blank&#34;&gt;Hucore theme&lt;/a&gt; &amp; &lt;a href=&#34;http://gohugo.io&#34; target=&#34;_blank&#34;&gt;Hugo&lt;/a&gt; ♥</copyright>
-    <lastBuildDate>Sun, 03 Sep 2017 00:00:00 +0000</lastBuildDate>
+    <copyright>Copyright &amp;copy; 2018 Dimitrij Klesev | &lt;a href=&#34;https://github.com/mgjohansen/hucore.git&#34; target=&#34;_blank&#34;&gt;Hucore theme&lt;/a&gt; &amp; &lt;a href=&#34;http://gohugo.io&#34; target=&#34;_blank&#34;&gt;Hugo&lt;/a&gt; ♥</copyright>
+    <lastBuildDate>Sat, 20 Oct 2018 08:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://dklesev.github.io/de/categories/docker/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Laradock mit Traefik nutzen (und HTTPS)</title>
+      <link>https://dklesev.github.io/de/laradock/</link>
+      <pubDate>Sat, 20 Oct 2018 08:00:00 +0000</pubDate>
+      
+      <guid>https://dklesev.github.io/de/laradock/</guid>
+      <description>Abbildung 1: Laradock und Traefik
+
+Die Entwicklung mit Laravel ist dank des ausgezeichneten Ecosystems hervorragend und auch sehr bequem. Dank Homestead oder Valet (allerdings nur für Mac) erhält man eine Arbeitsumgebung und kann direkt losstarten. Mit Docker ist es jedoch noch bequemer geworden, spätestens mit Laradock. Hierbei lassen sich die einzelnen Services nicht nur schnell zu- und abschalten, sondern auch viele Konfigurationen oder auch Umgebungen lassen sich wie mit git verwalten.</description>
+    </item>
     
     <item>
       <title>Erstellen einer lokalen Entwicklungsumgebung mit CoreDNS, SSH und Docker Swarm</title>

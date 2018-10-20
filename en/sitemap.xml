@@ -1,74 +1,226 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  
+  <url>
+    <loc>https://dklesev.github.io/laradock/</loc>
+    <lastmod>2018-10-20T08:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="de"
+                href="https://dklesev.github.io/de/laradock/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://dklesev.github.io/laradock/"
+                />
+  </url>
   
   <url>
     <loc>https://dklesev.github.io/devenv/</loc>
     <lastmod>2017-09-03T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="de"
+                href="https://dklesev.github.io/de/devenv/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://dklesev.github.io/devenv/"
+                />
   </url>
   
   <url>
     <loc>https://dklesev.github.io/categories/</loc>
     <priority>0</priority>
+    <xhtml:link
+                rel="alternate"
+                hreflang="de"
+                href="https://dklesev.github.io/de/categories/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://dklesev.github.io/categories/"
+                />
   </url>
   
   <url>
     <loc>https://dklesev.github.io/</loc>
-    <lastmod>2017-09-03T00:00:00+00:00</lastmod>
+    <lastmod>2018-10-20T08:00:00+00:00</lastmod>
     <priority>0</priority>
+    <xhtml:link
+                rel="alternate"
+                hreflang="de"
+                href="https://dklesev.github.io/de/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://dklesev.github.io/"
+                />
+  </url>
+  
+  <url>
+    <loc>https://dklesev.github.io/categories/dev/</loc>
+    <lastmod>2018-10-20T08:00:00+00:00</lastmod>
+    <priority>0</priority>
+    <xhtml:link
+                rel="alternate"
+                hreflang="de"
+                href="https://dklesev.github.io/de/categories/dev/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://dklesev.github.io/categories/dev/"
+                />
   </url>
   
   <url>
     <loc>https://dklesev.github.io/tags/devops/</loc>
     <lastmod>2017-09-03T00:00:00+00:00</lastmod>
     <priority>0</priority>
+    <xhtml:link
+                rel="alternate"
+                hreflang="de"
+                href="https://dklesev.github.io/de/tags/devops/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://dklesev.github.io/tags/devops/"
+                />
   </url>
   
   <url>
     <loc>https://dklesev.github.io/categories/devops/</loc>
     <lastmod>2017-09-03T00:00:00+00:00</lastmod>
     <priority>0</priority>
+    <xhtml:link
+                rel="alternate"
+                hreflang="de"
+                href="https://dklesev.github.io/de/categories/devops/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://dklesev.github.io/categories/devops/"
+                />
   </url>
   
   <url>
     <loc>https://dklesev.github.io/tags/dns/</loc>
-    <lastmod>2017-09-03T00:00:00+00:00</lastmod>
+    <lastmod>2018-10-20T08:00:00+00:00</lastmod>
     <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://dklesev.github.io/categories/dns/</loc>
-    <lastmod>2017-09-03T00:00:00+00:00</lastmod>
-    <priority>0</priority>
+    <xhtml:link
+                rel="alternate"
+                hreflang="de"
+                href="https://dklesev.github.io/de/tags/dns/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://dklesev.github.io/tags/dns/"
+                />
   </url>
   
   <url>
     <loc>https://dklesev.github.io/tags/docker/</loc>
-    <lastmod>2017-09-03T00:00:00+00:00</lastmod>
+    <lastmod>2018-10-20T08:00:00+00:00</lastmod>
     <priority>0</priority>
+    <xhtml:link
+                rel="alternate"
+                hreflang="de"
+                href="https://dklesev.github.io/de/tags/docker/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://dklesev.github.io/tags/docker/"
+                />
   </url>
   
   <url>
     <loc>https://dklesev.github.io/categories/docker/</loc>
-    <lastmod>2017-09-03T00:00:00+00:00</lastmod>
+    <lastmod>2018-10-20T08:00:00+00:00</lastmod>
     <priority>0</priority>
+    <xhtml:link
+                rel="alternate"
+                hreflang="de"
+                href="https://dklesev.github.io/de/categories/docker/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://dklesev.github.io/categories/docker/"
+                />
+  </url>
+  
+  <url>
+    <loc>https://dklesev.github.io/tags/laravel/</loc>
+    <lastmod>2018-10-20T08:00:00+00:00</lastmod>
+    <priority>0</priority>
+    <xhtml:link
+                rel="alternate"
+                hreflang="de"
+                href="https://dklesev.github.io/de/tags/laravel/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://dklesev.github.io/tags/laravel/"
+                />
   </url>
   
   <url>
     <loc>https://dklesev.github.io/tags/ssh/</loc>
     <lastmod>2017-09-03T00:00:00+00:00</lastmod>
     <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://dklesev.github.io/categories/ssh/</loc>
-    <lastmod>2017-09-03T00:00:00+00:00</lastmod>
-    <priority>0</priority>
+    <xhtml:link
+                rel="alternate"
+                hreflang="de"
+                href="https://dklesev.github.io/de/tags/ssh/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://dklesev.github.io/tags/ssh/"
+                />
   </url>
   
   <url>
     <loc>https://dklesev.github.io/tags/</loc>
     <lastmod>2017-09-03T00:00:00+00:00</lastmod>
     <priority>0</priority>
+    <xhtml:link
+                rel="alternate"
+                hreflang="de"
+                href="https://dklesev.github.io/de/tags/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://dklesev.github.io/tags/"
+                />
+  </url>
+  
+  <url>
+    <loc>https://dklesev.github.io/tags/traefik/</loc>
+    <lastmod>2018-10-20T08:00:00+00:00</lastmod>
+    <priority>0</priority>
+    <xhtml:link
+                rel="alternate"
+                hreflang="de"
+                href="https://dklesev.github.io/de/tags/traefik/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://dklesev.github.io/tags/traefik/"
+                />
   </url>
   
 </urlset>

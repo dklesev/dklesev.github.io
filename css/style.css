@@ -12,6 +12,11 @@ article, aside, figure, footer, header, nav, section, details, summary {
   display: block
 }
 
+img[src$="centerme"] {
+  display:block;
+  margin: 0 auto;
+}
+
 html {
   box-sizing: border-box
 }
